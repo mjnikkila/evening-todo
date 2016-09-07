@@ -13,7 +13,9 @@
 
 This is an example application following [TodoMVC](https://github.com/tastejs/todomvc/blob/master/app-spec.md) guidelines using [eveningjs](http://eveningjs.org) toolbox.
 
+To get started clone this repository and run
 
+    npm install
 
 ## Credit
 
