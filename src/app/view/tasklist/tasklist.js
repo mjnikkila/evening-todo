@@ -1,11 +1,54 @@
 var _tmpl_list = require("./list.html");
 var _tmpl_list_item = require("./list_item.html");
 
+/**
+ * Implements one todo item logic
+ * @see https://github.com/tastejs/todomvc/blob/master/app-spec.md#item
+ */
 var _view_list_item = Evening.View.extend({
     viewTemplate: _tmpl_list_item,
     tagName: "li",
     bindings: {
-        ".title": "text:title"
+        ".title": "text: title",
+        ".edit": "value: title",
+        ".toggle": "checked: completed"
+    },
+
+    events: {
+        "dblclick label": "enable_edit_mode",
+        "keyup .edit": "disable_edit_mode",
+        "click .destroy": "destroy"
+    },
+
+    construct: function(){
+        this.listenTo(this.model, "change:completed", function(model){
+            if(model.get("completed") == true) {
+                this.$el.addClass("completed");
+            } else {
+                this.$el.removeClass("completed");
+            }
+        }.bind(this));
+    },
+
+    /**
+     * Toggles editing mode for the item
+     * @see https://github.com/tastejs/todomvc/blob/master/app-spec.md#item
+     * @see https://github.com/tastejs/todomvc/blob/master/app-spec.md#editing
+     */
+    enable_edit_mode: function() {
+        this.$el.addClass("editing");
+        this.$(".edit").focus();
+    },
+
+    disable_edit_mode: function(ev) {
+        if(ev.keyCode == 13) {
+            this.$el.removeClass("editing");
+        }
+    },
+
+    destroy: function() {
+        this.model.destroy();
+        this.remove();
     }
 });
 
@@ -18,17 +61,6 @@ module.exports = Evening.View.extend({
     },
 
     construct: function() {
-        // Handle https://github.com/tastejs/todomvc/blob/master/app-spec.md#no-todos
-        this.handle_no_todos();
-
-
-    },
-
-    handle_no_todos: function() {
-        if(this.collection.length == 0) {
-            var $layout = Evening.getRepository("view", "layout").$el;
-            $layout.find(".main").hide();
-            $layout.find(".footer").hide();
-        }
+        // Nothign to do
     }
 });
