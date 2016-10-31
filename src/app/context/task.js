@@ -2,7 +2,8 @@ define(function(){
     var model = Evening.Model.extend({
         defaults: {
             title: "",
-            description: ""
+            description: "",
+            completed: false
         }
     });
 
