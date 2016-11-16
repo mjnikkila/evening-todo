@@ -3,6 +3,9 @@ module.exports = function() {
     var v_layout = require("view/layout/layout");
     var v_tasklist = require("view/tasklist/tasklist");
 
+    /*
+     * Initialize default empty task collection
+     */
     var task_collection = new c_task.collection();
     Evening.repositoryAdd(task_collection, "tasks");
 
@@ -38,4 +41,29 @@ module.exports = function() {
         });
         Lockr.set("todos-evening", models);
     });
+
+    /*
+     * Initialize Evening router
+     */
+    var router = new Evening.Router({
+        routes: {
+            "*filter": function(type) {
+                var view = Evening.repositoryGet("view", "tasklist");
+                view.filter(type);
+
+                // Handle filter buttons
+                var layout = Evening.repositoryGet("view", "layout");
+                layout.$(".filters a").removeClass("selected");
+
+                if(type != null) {
+                    layout.$("#btn_filter_"+type).addClass("selected");
+                } else {
+                    layout.$("#btn_filter_all").addClass("selected");
+                }
+            }
+        }
+    });
+
+    // Start routing
+    router.start();
 };

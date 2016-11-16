@@ -3,7 +3,8 @@ define(function(){
         defaults: {
             title: "",
             description: "",
-            completed: false
+            completed: false,
+            visible: true
         }
     });
 

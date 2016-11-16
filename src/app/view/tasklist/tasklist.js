@@ -11,7 +11,8 @@ var _view_list_item = Evening.View.extend({
     bindings: {
         ".title": "text: title",
         ".edit": "value: title",
-        ".toggle": "checked: completed"
+        ".toggle": "checked: completed",
+        ":el": "toggle: visible"
     },
 
     events: {
@@ -62,5 +63,24 @@ module.exports = Evening.View.extend({
 
     construct: function() {
         // Nothign to do
+    },
+
+    filter: function(type) {
+        // Handle filtering
+        _.each(this.collection.models, function(task) {
+            if(type == null) {
+                task.set("visible", true);
+            } else {
+                task.set("visible", false);
+            }
+
+            if(type == "active" && task.get("completed") === false) {
+                task.set("visible", true);
+            }
+
+            if(type == "completed" && task.get("completed") === true) {
+                task.set("visible", true);
+            }
+        });
     }
 });
