@@ -1,0 +1,4 @@
+Hi there!
+
+I'm here to keep my folder in the git repository. It's very important since system creates compiled js bundle
+here. You can compile production version by typing "npm run prod"
