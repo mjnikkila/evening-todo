@@ -7,7 +7,7 @@ module.exports = function() {
      * Initialize default empty task collection
      */
     var task_collection = new c_task.collection();
-    Evening.repositoryAdd(task_collection, "tasks");
+    Evening.repository.add(task_collection, "tasks");
 
     new v_layout({
         name: "layout",
@@ -17,7 +17,7 @@ module.exports = function() {
     // Render app main view
     new v_tasklist({
         name: "tasklist",
-        el: Evening.repositoryGet("view", "layout").$el.find(".main"),
+        el: Evening.repository.get("view", "layout").$el.find(".main"),
         collection: task_collection
     });
 
@@ -48,11 +48,11 @@ module.exports = function() {
     var router = new Evening.Router({
         routes: {
             "*filter": function(type) {
-                var view = Evening.repositoryGet("view", "tasklist");
+                var view = Evening.repository.get("view", "tasklist");
                 view.filter(type);
 
                 // Handle filter buttons
-                var layout = Evening.repositoryGet("view", "layout");
+                var layout = Evening.repository.get("view", "layout");
                 layout.$(".filters a").removeClass("selected");
 
                 if(type != null) {

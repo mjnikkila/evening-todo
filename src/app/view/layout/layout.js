@@ -19,7 +19,7 @@ module.exports = Evening.View.extend({
      * @see https://github.com/tastejs/todomvc/blob/master/app-spec.md#no-todos
      */
     handle_no_todo: function() {
-        var collection = Evening.repositoryGet("collection", "tasks");
+        var collection = Evening.repository.get("collection", "tasks");
         this.listenTo(collection, "add", function(){
             if(collection.length == 0) {
                 this.$(".main").hide();
@@ -45,14 +45,14 @@ module.exports = Evening.View.extend({
                 title: name
             });
 
-            Evening.repositoryGet("collection", "tasks").push(task);
+            Evening.repository.get("collection", "tasks").push(task);
 
             $(ev.currentTarget).val("");
         }
     },
 
     handle_item_count: function() {
-        var collection = Evening.repositoryGet("collection", "tasks");
+        var collection = Evening.repository.get("collection", "tasks");
         this.listenTo(collection, "add remove change reset", function(){
             var count = collection.where({completed: false}).length;
             var item_count_html = "<strong>"+count+"</strong> item left";
@@ -71,7 +71,7 @@ module.exports = Evening.View.extend({
     },
 
     clear_completed: function() {
-        var collection = Evening.repositoryGet("collection", "tasks");
+        var collection = Evening.repository.get("collection", "tasks");
         var completed = collection.where({completed: true});
         _.each(completed, function(task){
             task.destroy();
