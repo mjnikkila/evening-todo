@@ -9,6 +9,12 @@ module.exports = Evening.View.extend({
         this.handle_item_count();
     },
 
+    post_render: function() {
+        // Require and import stylesheets
+        require("../../../../node_modules/todomvc-common/base.css");
+        require("../../../../node_modules/todomvc-app-css/index.css");
+    },
+
     events: {
         "keyup .new-todo": "add_new_todo",
         "click .clear-completed": "clear_completed"
