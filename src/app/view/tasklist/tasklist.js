@@ -2,17 +2,19 @@ var _tmpl_list = require("./list.html");
 var _tmpl_list_item = require("./list_item.html");
 
 /**
- * Implements one todo item logic
+ * Implements logic for one todo list item
  * @see https://github.com/tastejs/todomvc/blob/master/app-spec.md#item
  */
 var _view_list_item = Evening.View.extend({
     viewTemplate: _tmpl_list_item,
+
     tagName: "li",
+
     bindings: {
         ".title": "text: title",
         ".edit": "value: title",
         ".toggle": "checked: completed",
-        ":el": "toggle: visible"
+        ":el": "toggle: visible, classes:{completed: completed}"
     },
 
     events: {
@@ -22,17 +24,11 @@ var _view_list_item = Evening.View.extend({
     },
 
     construct: function(){
-        this.listenTo(this.model, "change:completed", function(model){
-            if(model.get("completed") == true) {
-                this.$el.addClass("completed");
-            } else {
-                this.$el.removeClass("completed");
-            }
-        }.bind(this));
+        // Nothing to construct
     },
 
     /**
-     * Toggles editing mode for the item
+     * Enables editing mode for the list item
      * @see https://github.com/tastejs/todomvc/blob/master/app-spec.md#item
      * @see https://github.com/tastejs/todomvc/blob/master/app-spec.md#editing
      */
@@ -41,6 +37,11 @@ var _view_list_item = Evening.View.extend({
         this.$(".edit").focus();
     },
 
+    /**
+     * Disables editing mode for the list item
+     * @see https://github.com/tastejs/todomvc/blob/master/app-spec.md#item
+     * @see https://github.com/tastejs/todomvc/blob/master/app-spec.md#editing
+     */
     disable_edit_mode: function(ev) {
         if(ev.keyCode == 13) {
             this.$el.removeClass("editing");
