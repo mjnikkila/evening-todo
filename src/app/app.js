@@ -1,7 +1,11 @@
+/**
+ * Bootstraps the application
+ * @module app
+ */
 module.exports = function() {
     var c_task = require("context/task");
     var v_layout = require("view/layout/layout");
-    var v_tasklist = require("view/tasklist/tasklist");
+    var v_tasklist = require("view/tasklist/list");
 
     /*
      * Initialize default empty task collection
@@ -23,7 +27,7 @@ module.exports = function() {
 
     /*
      * Implement local storage capabilities
-     * @see https://github.com/tastejs/todomvc/blob/master/app-spec.md#persistence
+     * See: https://github.com/tastejs/todomvc/blob/master/app-spec.md#persistence
      *
      * We differ a bit from the guidelines since I see that Lockr is better library to use
      * with evening models since it can store objects too
