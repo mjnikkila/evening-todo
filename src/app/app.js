@@ -45,9 +45,7 @@ module.exports = function() {
         Lockr.set("todos-evening", models);
     });
 
-    /*
-     * Initialize Evening router
-     */
+    // Initialize Evening router
     var router = new Evening.Router({
         routes: {
             "*filter": function(type) {
