@@ -7,18 +7,17 @@ module.exports = function() {
     var v_layout = require("view/layout/layout");
     var v_tasklist = require("view/tasklist/list");
 
-    /*
-     * Initialize default empty task collection
-     */
+    // Initialize default empty task collection
     var task_collection = new c_task.collection();
     Evening.repository.add(task_collection, "tasks");
 
+    // Initialize layout view
     new v_layout({
         name: "layout",
-        el: "body"
+        el: "html"
     });
 
-    // Render app main view
+    // Initialize the app main view
     new v_tasklist({
         name: "tasklist",
         el: Evening.repository.get("view", "layout").$el.find(".main"),
